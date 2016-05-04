@@ -7,7 +7,7 @@ import {Component} from 'angular2/core';
 ```
 
 ### Components:
-* A components contains application logic tha controls a region of the UI that we call a view.
+* A components contains application logic that controls a region of the UI that we call a view.
 * Lets look a declaration:
 
   ```ts
@@ -104,8 +104,14 @@ import {Component} from 'angular2/core';
   <!--Style property binding-->
   <button [style.color]="isStopped ? 'red' : 'blue'"></button>
   ```
-  
 * Event Binding: (event) = "statement" (DOM --> Component)
+
+  ```html
+  <!--Element event-->
+  <button (click)="save()">Save</button>
+  <!--Component event-->
+  <hero-detail (changed)="heroChanged()"></hero-detail>
+  ```
 * Two way binding: [(ngModel)] = "property" (DOM <-- Component)
   
  

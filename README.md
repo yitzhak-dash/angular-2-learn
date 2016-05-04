@@ -285,6 +285,73 @@ getVehicles(value?: string) {
 ```
 * Component and Template looks like  case with Observable.
 
+### Routing
+* Add the reference to router.dev.js
+* Add <base href="/"> to index.html
+* Routing in $ steps:
+  * ROUTER_PROVIDERS: Tells the Template what is routerLink and router-outlet are.
+  
+  ```ts
+  // app.component.ts
+  ...
+  import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+  ...
+  @Component({
+    selector: 'story-app',
+    templateUrl: 'app/app.component.html',
+    directives: [ROUTER_DIRECTIVES],
+    providers: [
+      HTTP_PROVIDERS,
+      ROUTER_PROVIDERS,
+      CharacterService,
+      VehicleService
+    ]
+  })
+  ```
+  * @RouteConfig: Accept the array of route definitions.
+  
+  ```ts
+   // app.component.ts
+  ...
+  @RouteConfig([
+  { path: '/characters', name: 'Characters', component: CharacterListComponent, useAsDefault: true },
+  { path: '/character/:id', name: 'Character', component: CharacterComponent },
+  { path: '/vehicles', name: 'Vehicles', component: VehicleListComponent },
+	{ path: '/vehicle/:id', name: 'Vehicle', component: VehicleComponent }
+  ])
+  ...
+  ```
+    * name - must be PascalCase
+    * path - maps the address
+    * component - maps to the Component
+  
+  * router-outlet
+  * [routerLink]
+  
+    ```html
+      <div>
+        <header>
+          <h1>Storyline Tracker</h1>
+          <h3>Router Demo</h3>
+          <nav>
+            <ul>
+              <!--
+                [routerLink] - navigates to a route
+              -->
+              <li><a [routerLink]="['Characters']" href="">Characters</a></li>
+              <li><a [routerLink]="['Vehicles']" href="">Vehicles</a></li>
+            </ul>
+          </nav>
+        </header>
+        <main>
+          <section>
+            <!-- is where the Component's Template will appear-->
+            <router-outlet></router-outlet>
+          </section>
+        </main>
+      </div>
+    ```
+
 
   
  

@@ -395,6 +395,30 @@ getVehicles(value?: string) {
 
     ```
 
+### Child Routers
+A Component may define routes for other Components. This creates a series of hierarchihal child routes.
+
+```ts
+   // app.component.ts
+  ...
+  @RouteConfig([
+  { path: '/characters', name: 'Characters', component: CharacterListComponent, useAsDefault: true },
+  { path: '/character/:id', name: 'Character', component: CharacterComponent },
+  { path: '/vehicles/...', name: 'Vehicles', component: VehicleListComponent }
+  ])
+  ...
+  ```
+  "/..." indicates a child route
+  
+  ```ts
+  // VehicleListComponent.ts
+  ...
+  @RouteConfig([
+  { path: '/', name: 'Vehicles', component: VehicleListComponent, useAsDefault: true },
+	{ path: '/:id', name: 'Vehicle', component: VehicleComponent }
+	])
+  ...
+  ```
 
   
  

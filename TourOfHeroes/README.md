@@ -1,2 +1,6 @@
 # angular-2-learn
-learning angular-2
+
+## todo list:
+- [ ] Finish routing
+
+

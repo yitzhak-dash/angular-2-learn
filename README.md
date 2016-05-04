@@ -266,6 +266,25 @@ import 'rxjs/Rx';
 </ul>
 ```
 
+### Promises with Http
+* Service:
+
+```ts
+import { Http, Response } from 'angular2/http';
+import { Observable } from 'rxjs/Rx';
+
+// ...
+// ...
+
+getVehicles(value?: string) {
+    return this._http.get('api/vehicles.json')
+      .map((response: Response) => <Vehicle[]>response.json().data)
+      .toPromise()
+      .catch(this.handleError);
+  }
+```
+* Component and Template looks like  case with Observable.
+
 
   
  

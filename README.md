@@ -232,7 +232,39 @@ import 'rxjs/Rx';
 .Be carefull, it's a big library, for production import the modules you require.
 
 ### Async Pipe
- 
+* The Async Pipe recieves a Promise or Observable as input and subscribes to the input, eventually emmiting the values  as changes arrive.
+* Lets look the **Component**. There are two little changes: Property becomes Observable and we set the observable from the Service.
+
+```ts
+  export class VehicleListComponent {
+    errorMessage: string;
+    selectedVehicle: Vehicle;
+  
+    constructor(private _vehicleService: VehicleService) { }
+  
+    ngOnInit() { this.getHeroes(); }
+  
+    vehicles: Observable<Vehicle[]>;    // Property becomes Observable
+  
+    getHeroes(value?: string) {
+      this.vehicles = this._vehicleService.getVehicles(value); // Set the observable from the Service
+    }
+  
+    select(vehicle: Vehicle) {
+      this.selectedVehicle = vehicle;
+    }
+  }
+  ```
+* Async Pipe in the **Template**:
+
+```html
+<ul>
+  <li *ngFor="#vehicle of vehicles | async"
+    (click)="select(vehicle)">
+    {{ vehicle.name }}
+  </li>
+</ul>
+```
 
 
   

@@ -146,6 +146,94 @@ import {Component} from 'angular2/core';
 * *ngIf: Conditionally removes elements from the DOM.
 * *ngSwitch
 
+### Pipes
+* **Pipes**: allow us to transform data for display in a Template.(filters in angular1)
+* **Async Pipe**: Subscribes to Promise or an Observalable, returning the latest value emmited
+* **Custom pipes**:   
+
+### Services
+
+### Dependency Injection
+* Use contsructor injection
+* Add @Injectable() attribute
+* Registering Sevices with the Injector:
+  * Providers: registers services with Injector
+  * Constructor Injection: inject 
+  * **Register the service with injector at the parent that contains all components  that require the service**
+
+### Component Lifecycle Hooks
+* Allow us to tap into specific moments in the app. lifecycle to perform logic.
+* Implement, for example, the lifecycle hook's interface **OnInit**(support ngOnInit() executed when Component initilizes)
+
+### Http
+* We use Http to get and save data with Prommises or Observables.
+* Http step by step:
+  * Add script refernce to http(http.dev.js).
+  * Register the Http providers in the Component. 
+  
+    ```ts
+    import { Component } from 'angular2/core';
+    import { HTTP_PROVIDERS } from 'angular2/http'; // IMPORTING HTTP_PROVIDERS
+    
+    import { Vehicle, VehicleService } from './vehicle.service';
+    import { VehicleListComponent } from './vehicle-list.component';
+    
+    @Component({
+      selector: 'my-app',
+      template: '<my-vehicle-list></my-vehicle-list>',
+      directives: [VehicleListComponent],
+      providers: [
+        HTTP_PROVIDERS,                            // REGISTER
+        VehicleService
+      ]
+    })
+    export class AppComponent {}
+    ```
+  * Call Http.get in a Service and return the mapped result.
+    ```ts
+    @Injectable()
+    export class VehicleService {
+      constructor(private _http: Http) { }
+    
+      getVehicles() {
+        return this._http.get('api/vehicles.json')
+          .map((response: Response) => <Vehicle[]>response.json().data) // map the response
+          .do(data => console.log(data))
+          .catch(this.handleError);
+      }
+      
+      // Handle any error
+      private handleError(error: Response) {
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
+      }
+    }
+    ```
+  * Subscribe to the Service's function in the Component:
+    ```ts
+    getHeroes() {
+    this._vehicleService.getVehicles()
+      .subscribe(                                 // subscribe to the observable
+        vehicles => this.vehicles = vehicles,     // success asnd failer cases
+        error =>  this.errorMessage = <any>error
+      );
+    }
+    ```
+    
+### RxJs
+* Reactive Js implements the asynchronous observable pattern that used in angular2.[reactivex.io](http://reactivex.io/)
+* In main.ts we should import the library: 
+  
+```ts
+// main.ts
+
+import 'rxjs/Rx';
+``` 
+.Be carefull, it's a big library, for production import the modules you require.
+
+### Async Pipe
+ 
+
 
   
  

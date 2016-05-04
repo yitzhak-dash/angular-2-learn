@@ -112,7 +112,41 @@ import {Component} from 'angular2/core';
   <!--Component event-->
   <hero-detail (changed)="heroChanged()"></hero-detail>
   ```
-* Two way binding: [(ngModel)] = "property" (DOM <-- Component)
+  * **$event**: contains a message about the event
+  
+  ```html
+  <input [value]="hero.name" (input)="hero.name=$event.target.value">
+  ```
+* Two way binding: [(ngModel)] = "property/expression" (DOM <-- Component). Banana in a box. 
+
+### Built-in Directives:
+* ngClass:
+  [ngClass]="{active:IsActive, color: myColor}"
+
+  ```html
+   <!-- Style binding.  Alternative to [class.class-name] -->
+    <div [ngClass]="setClass()">{{hero.name}}</div>
+  ```
+* ngStyle: . Settining multiple styles.
+  [ngStyle]="{color: colorPreference}"
+  [style.color]="colorPreference"
+
+ ```html
+ <!-- Style binding. Alternative to [style.style-name] -->
+ <div [ngStyle]="setStyles()">{{hero.name}}</div>
+ ```
+* *ngFor
+
+  ```html
+  <!-- "#"-declare local variable -->
+  <div *ngFor="#hero of heroes, #i=index">
+    {{i}}. {{hero.name}}
+  </div>
+  ```
+* *ngIf: Conditionally removes elements from the DOM.
+* *ngSwitch
+
+
   
  
   
